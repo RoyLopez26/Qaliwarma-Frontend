@@ -1,0 +1,8 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/42eaacef-a574-4578-8cd5-7c517b0de91e/resourceGroups/Resource-general/providers/Microsoft.Web/sites/ms-qaliwarma",
+    "appService.deploySubpath": ".",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}

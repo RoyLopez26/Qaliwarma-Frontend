@@ -1,0 +1,94 @@
+<app-menu></app-menu>
+<br>
+
+<div class="card p-3">
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <h3>Distribuciones</h3>
+    </div>
+  </p-toolbar>
+  <br>
+
+  <p-table [value]="distribuciones" [paginator]="true" [rows]="7" [scrollable]="true" scrollDirection="both"
+           [showCurrentPageReport]="true"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} distribuciones">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Empleado</th>
+        <th>Colegio</th>
+        <th>Observaciones</th>
+        <th>Estado Entrega</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-distribucion>
+      <tr>
+        <td>{{ distribucion.distribucionId }}</td>
+        <td>{{ distribucion.fechaDistribucion | date:'dd/MM/yyyy' }}</td>
+        <td>{{ distribucion.nombreEmpleado }}</td>
+        <td>{{ distribucion.nombreColegio }}</td>
+        <td>{{ distribucion.observaciones }}</td>
+        <td><p-tag [value]="distribucion.estadoEntrega" [severity]="getSeverity(distribucion.estadoEntrega)"></p-tag></td>
+        <td>
+          <a><p-button icon="pi pi-eye" [rounded]="true" severity="success" [text]="true" (click)="verDetalles(distribucion)"></p-button></a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '600px'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between align-items-center">
+        <span class="text-2xl">Distribución Nro. {{ distribucionSeleccionada?.distribucionId }}</span>
+      </div>
+    </ng-template>
+    <div *ngIf="distribucionSeleccionada">
+      <div class="grid">
+        <div class="col-12">
+          <div class="surface-100 p-3 border-round">
+            <div class="flex justify-content-between">
+              <div>
+                <p><strong>Empleado:</strong> {{ distribucionSeleccionada.nombreEmpleado }}</p>
+                <p><strong>Fecha Distribución:</strong> {{ distribucionSeleccionada.fechaDistribucion | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <div>
+                <p><strong>Colegio:</strong> {{ distribucionSeleccionada.nombreColegio }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mt-3">
+          <div class="surface-100 p-3 border-round">
+            <div class="text-xl font-bold mb-2">Detalle distribución</div>
+            <p-table [value]="distribucionSeleccionada.detalles" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Unidad de Medida</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-detalle>
+                <tr>
+                  <td>{{ detalle.nombreProducto }}</td>
+                  <td>{{ detalle.cantidad }}</td>
+                  <td>{{ detalle.unidadMedida }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-between align-items-center">
+        <p-tag styleClass="mr-2" severity="success" [value]="distribucionSeleccionada?.estadoEntrega"></p-tag>
+        <p-button label="Cerrar" icon="pi pi-times" (click)="ocultarDetalles()" severity="danger"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+

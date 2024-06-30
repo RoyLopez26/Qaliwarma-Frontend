@@ -1,0 +1,26 @@
+::ng-deep .p-datatable .p-datatable-thead > tr > th,
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1rem;
+}
+
+/* Estilos para el scroll horizontal */
+::ng-deep .p-datatable.p-datatable-scrollable .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+th, td {
+  text-align: center;
+}
+
+/* Estilos para la barra de herramientas */
+::ng-deep .p-toolbar {
+  border: none;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+::ng-deep .p-toolbar-group-left {
+  flex-grow: 1;
+}

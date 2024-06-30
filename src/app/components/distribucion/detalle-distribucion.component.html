@@ -1,0 +1,32 @@
+<div class="modal" *ngIf="distribucionSeleccionada">
+  <h2>Detalles de Distribución</h2>
+  <p>ID: {{ distribucionSeleccionada.distribucionId }}</p>
+  <p>Fecha: {{ distribucionSeleccionada.fechaDistribucion | date }}</p>
+  <p>Empleado: {{ distribucionSeleccionada.nombreEmpleado }}</p>
+  <p>Colegio: {{ distribucionSeleccionada.nombreColegio }}</p>
+  <p>Observaciones: {{ distribucionSeleccionada.observaciones }}</p>
+  <p>Estado: {{ distribucionSeleccionada.estadoEntrega }}</p>
+
+  <h3>Detalles de Productos:</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Unidad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let detalle of distribucionSeleccionada.detalles">
+      <td>{{ detalle.nombreProducto }}</td>
+      <td>{{ detalle.cantidad }}</td>
+      <td>{{ detalle.unidadMedida }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button (click)="cerrarDetalles.emit()">Cerrar</button>
+</div>
+<div *ngIf="!distribucionSeleccionada">
+  <p>No hay distribucion seleccionanda</p>
+</div>
